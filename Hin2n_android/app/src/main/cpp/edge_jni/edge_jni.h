@@ -2,8 +2,8 @@
 // Created by switchwang(https://github.com/switch-st) on 2018-04-13.
 //
 
-#ifndef _EDGE_ANDROID_H_
-#define _EDGE_ANDROID_H_
+#ifndef _EDGE_JNI_H_
+#define _EDGE_JNI_H_
 
 #ifdef __ANDROID_NDK__
 
@@ -16,7 +16,7 @@
 #define EDGE_CMD_MACNAMSIZ 18
 #define EDGE_CMD_COMMUNITY_SIZE 16
 #define EDGE_CMD_HOLEPUNCH_INTERVAL 25
-
+#define EDGE_CMD_ENCRYPTION_MODE_SIZE 16
 
 typedef struct n2n_edge_cmd_st
 {
@@ -29,6 +29,8 @@ typedef struct n2n_edge_cmd_st
     char mac_addr[EDGE_CMD_MACNAMSIZ];
     unsigned int mtu;
     char local_ip[EDGE_CMD_IPSTR_SIZE];
+    char gateway_ip[EDGE_CMD_IPSTR_SIZE];
+    char encryption_mode[EDGE_CMD_ENCRYPTION_MODE_SIZE];
     unsigned int holepunch_interval;
     int re_resolve_supernode_ip;
     unsigned int local_port;
@@ -38,6 +40,7 @@ typedef struct n2n_edge_cmd_st
     int trace_vlevel;
     int vpn_fd;
     char* logpath;
+    char* devDesc;
 } n2n_edge_cmd_t;
 
 enum
@@ -54,7 +57,8 @@ enum
     EDGE_TYPE_NONE = -1,
     EDGE_TYPE_V1,
     EDGE_TYPE_V2,
-    EDGE_TYPE_V2S
+    EDGE_TYPE_V2S,
+    EDGE_TYPE_V3
 };
 
 typedef struct n2n_edge_status_st {
@@ -73,7 +77,7 @@ typedef struct n2n_edge_status_st {
     uint8_t running_status;
 } n2n_edge_status_t;
 
-n2n_edge_status_t* g_status;
+extern n2n_edge_status_t* g_status;
 
 extern int start_edge_v1(n2n_edge_status_t* status);
 extern int stop_edge_v1(void);
@@ -81,6 +85,8 @@ extern int start_edge_v2(n2n_edge_status_t* status);
 extern int stop_edge_v2(void);
 extern int start_edge_v2s(n2n_edge_status_t* status);
 extern int stop_edge_v2s(void);
+extern int start_edge_v3(n2n_edge_status_t* status);
+extern int stop_edge_v3(void);
 extern void report_edge_status(void);
 
 #endif /* __ANDROID_NDK__ */

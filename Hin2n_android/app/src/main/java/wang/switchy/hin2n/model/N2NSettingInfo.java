@@ -21,6 +21,7 @@ public class N2NSettingInfo implements Parcelable {
      * 后续需要加密存储
      */
     String password;
+    String devDesc;
     String superNode;
     boolean moreSettings;
     String superNodeBackup;
@@ -34,6 +35,9 @@ public class N2NSettingInfo implements Parcelable {
     boolean dropMuticast;
     int traceLevel;
     boolean useHttpTunnel;
+    String gatewayIp;
+    String dnsServer;
+    String encryptionMode;
 
     public N2NSettingInfo(N2NSettingModel n2NSettingModel) {
         this.id = n2NSettingModel.getId();
@@ -43,6 +47,7 @@ public class N2NSettingInfo implements Parcelable {
         this.netmask = n2NSettingModel.getNetmask();
         this.community = n2NSettingModel.getCommunity();
         this.password = n2NSettingModel.getPassword();
+        this.devDesc = n2NSettingModel.getDevDesc();
         this.superNode = n2NSettingModel.getSuperNode();
         this.moreSettings = n2NSettingModel.getMoreSettings();
         this.superNodeBackup = n2NSettingModel.getSuperNodeBackup();
@@ -56,6 +61,9 @@ public class N2NSettingInfo implements Parcelable {
         this.dropMuticast = n2NSettingModel.getDropMuticast();
         this.traceLevel = n2NSettingModel.getTraceLevel();
         this.useHttpTunnel = n2NSettingModel.isUseHttpTunnel();
+        this.gatewayIp = n2NSettingModel.getGatewayIp();
+        this.dnsServer = n2NSettingModel.getDnsServer();
+        this.encryptionMode = n2NSettingModel.getEncryptionMode();
     }
 
     protected N2NSettingInfo(Parcel in) {
@@ -66,6 +74,7 @@ public class N2NSettingInfo implements Parcelable {
         netmask = in.readString();
         community = in.readString();
         password = in.readString();
+        devDesc = in.readString();
         superNode = in.readString();
         moreSettings = in.readByte() != 0;
         superNodeBackup = in.readString();
@@ -79,6 +88,9 @@ public class N2NSettingInfo implements Parcelable {
         dropMuticast = in.readByte() != 0;
         traceLevel = in.readInt();
         useHttpTunnel = in.readByte() != 0;
+        gatewayIp = in.readString();
+        dnsServer = in.readString();
+        encryptionMode = in.readString();
     }
 
     public static final Creator<N2NSettingInfo> CREATOR = new Creator<N2NSettingInfo>() {
@@ -148,6 +160,10 @@ public class N2NSettingInfo implements Parcelable {
     public void setSuperNode(String superNode) {
         this.superNode = superNode;
     }
+
+    public String getDevDesc() { return devDesc; }
+
+    public void setDevDesc(String devDesc) { this.devDesc = devDesc; }
 
     public boolean isMoreSettings() {
         return moreSettings;
@@ -253,6 +269,16 @@ public class N2NSettingInfo implements Parcelable {
         this.useHttpTunnel = useHttpTunnel;
     }
 
+    public String getGatewayIp() {
+        return gatewayIp;
+    }
+
+    public String getDnsServer() {
+        return dnsServer;
+    }
+
+    public String getEncryptionMode() { return encryptionMode; }
+
     @Override
     public String toString() {
         return "N2NSettingInfo{" +
@@ -263,6 +289,7 @@ public class N2NSettingInfo implements Parcelable {
                 ", netmask='" + netmask + '\'' +
                 ", community='" + community + '\'' +
                 ", password='" + password + '\'' +
+                ", devDesc='" + devDesc + '\'' +
                 ", superNode='" + superNode + '\'' +
                 ", moreSettings=" + moreSettings +
                 ", superNodeBackup='" + superNodeBackup + '\'' +
@@ -276,6 +303,9 @@ public class N2NSettingInfo implements Parcelable {
                 ", dropMuticast=" + dropMuticast +
                 ", traceLevel=" + traceLevel +
                 ", useHttpTunnel=" + useHttpTunnel +
+                ", gatewayIp=" + gatewayIp +
+                ", dnsServer=" + dnsServer +
+                ", encryptionMode=" + encryptionMode +
                 '}';
     }
 
@@ -297,6 +327,7 @@ public class N2NSettingInfo implements Parcelable {
         parcel.writeString(netmask);
         parcel.writeString(community);
         parcel.writeString(password);
+        parcel.writeString(devDesc);
         parcel.writeString(superNode);
         parcel.writeByte((byte) (moreSettings ? 1 : 0));
         parcel.writeString(superNodeBackup);
@@ -310,5 +341,8 @@ public class N2NSettingInfo implements Parcelable {
         parcel.writeByte((byte) (dropMuticast ? 1 : 0));
         parcel.writeInt(traceLevel);
         parcel.writeByte((byte) (useHttpTunnel ? 1 : 0));
+        parcel.writeString(gatewayIp);
+        parcel.writeString(dnsServer);
+        parcel.writeString(encryptionMode);
     }
 }

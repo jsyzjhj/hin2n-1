@@ -24,6 +24,7 @@ public class N2NSettingModel /*implements Parcelable*/ {
      * 后续需要加密存储
      */
     String password;
+    String devDesc;
     String superNode;
     boolean moreSettings;
     String superNodeBackup;
@@ -38,7 +39,9 @@ public class N2NSettingModel /*implements Parcelable*/ {
     boolean useHttpTunnel;
     int traceLevel;
     boolean isSelcected;
-
+    String gatewayIp;
+    String dnsServer;
+    String encryptionMode;
 
 
     public String getSuperNode() {
@@ -80,6 +83,10 @@ public class N2NSettingModel /*implements Parcelable*/ {
     public void setIp(String ip) {
         this.ip = ip;
     }
+
+    public String getDevDesc() { return this.devDesc; }
+
+    public void setDevDesc(String devDesc) { this.devDesc = devDesc; }
 
     public Long getId() {
         return this.id;
@@ -201,11 +208,33 @@ public class N2NSettingModel /*implements Parcelable*/ {
         this.useHttpTunnel = useHttpTunnel;
     }
 
-    @Generated(hash = 1649807878)
-    public N2NSettingModel(Long id, int version, String name, String ip, String netmask, String community,
-            String password, String superNode, boolean moreSettings, String superNodeBackup, String macAddr,
-            int mtu, String localIP, int holePunchInterval, boolean resoveSupernodeIP, int localPort,
-            boolean allowRouting, boolean dropMuticast, boolean useHttpTunnel, int traceLevel, boolean isSelcected) {
+    public String getGatewayIp() {
+        return this.gatewayIp;
+    }
+
+    public String getDnsServer() {
+        return this.dnsServer;
+    }
+
+    public String getEncryptionMode() {
+        return this.encryptionMode;
+    }
+
+    public void setGatewayIp(String gatewayIp) {
+        this.gatewayIp = gatewayIp;
+    }
+
+    public void setDnsServer(String dnsServer) {
+        this.dnsServer = dnsServer;
+    }
+
+    public void setEncryptionMode(String mode) { this.encryptionMode = mode; }
+
+    @Generated(hash = 2037619007)
+    public N2NSettingModel(Long id, int version, String name, String ip, String netmask, String community, String password, String devDesc,
+            String superNode, boolean moreSettings, String superNodeBackup, String macAddr, int mtu, String localIP, int holePunchInterval,
+            boolean resoveSupernodeIP, int localPort, boolean allowRouting, boolean dropMuticast, boolean useHttpTunnel, int traceLevel,
+            boolean isSelcected, String gatewayIp, String dnsServer, String encryptionMode) {
         this.id = id;
         this.version = version;
         this.name = name;
@@ -213,6 +242,7 @@ public class N2NSettingModel /*implements Parcelable*/ {
         this.netmask = netmask;
         this.community = community;
         this.password = password;
+        this.devDesc = devDesc;
         this.superNode = superNode;
         this.moreSettings = moreSettings;
         this.superNodeBackup = superNodeBackup;
@@ -227,6 +257,9 @@ public class N2NSettingModel /*implements Parcelable*/ {
         this.useHttpTunnel = useHttpTunnel;
         this.traceLevel = traceLevel;
         this.isSelcected = isSelcected;
+        this.gatewayIp = gatewayIp;
+        this.dnsServer = dnsServer;
+        this.encryptionMode = encryptionMode;
     }
 
     @Generated(hash = 998225630)
@@ -251,6 +284,7 @@ public class N2NSettingModel /*implements Parcelable*/ {
                 ", netmask='" + netmask + '\'' +
                 ", community='" + community + '\'' +
                 ", password='" + password + '\'' +
+                ", devDesc='" + devDesc + '\'' +
                 ", superNode='" + superNode + '\'' +
                 ", moreSettings=" + moreSettings +
                 ", superNodeBackup='" + superNodeBackup + '\'' +
@@ -265,6 +299,9 @@ public class N2NSettingModel /*implements Parcelable*/ {
                 ", useHttpTunnel=" + useHttpTunnel +
                 ", traceLevel=" + traceLevel +
                 ", isSelcected=" + isSelcected +
+                ", gatewayIp=" + gatewayIp +
+                ", dnsServer=" + dnsServer +
+                ", encryptionMode =" + encryptionMode +
                 '}';
     }
 

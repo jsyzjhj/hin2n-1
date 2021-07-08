@@ -4,11 +4,12 @@ import java.util.Random;
 import java.util.Vector;
 
 public class EdgeCmd {
-    public int edgeType;    // 0: v1, 1: v2, 2: v2s
+    public int edgeType;    // 0: v1, 1: v2, 2: v2s 3: v3
     public String ipAddr;
     public String ipNetmask;
     public String[] supernodes;
     public String community;
+    public String devDesc;
     public String encKey;
     public String encKeyFile;
     public String macAddr;
@@ -22,18 +23,23 @@ public class EdgeCmd {
     public boolean httpTunnel;
     public int traceLevel;
     public int vpnFd;
+    public String gatewayIp;
+    public String dnsServer;
     public String logPath;
+    public String encryptionMode;
 
     public EdgeCmd(int edgeType, String ipAddr, String ipNetmask, String[] supernodes, String community,
-                   String encKey, String encKeyFile, String macAddr, int mtu, String localIP, int holePunchInterval,
+                   String encKey, String devDesc, String encKeyFile, String macAddr, int mtu, String localIP, int holePunchInterval,
                    boolean reResoveSupernodeIP, int localPort, boolean allowRouting, boolean dropMuticast,
-                   boolean httpTunnel, int traceLevel, int vpnFd, String logPath) {
+                   boolean httpTunnel, int traceLevel, int vpnFd, String logPath, String gatewayIp, String dnsServer,
+                   String encryptionMode) {
         this.edgeType = edgeType;
         this.ipAddr = ipAddr;
         this.ipNetmask = ipNetmask;
         this.supernodes = supernodes;
         this.community = community;
         this.encKey = encKey;
+        this.devDesc = devDesc;
         this.encKeyFile = encKeyFile;
         this.macAddr = macAddr;
         this.mtu = mtu;
@@ -47,6 +53,9 @@ public class EdgeCmd {
         this.traceLevel = traceLevel;
         this.vpnFd = vpnFd;
         this.logPath = logPath;
+        this.gatewayIp = gatewayIp;
+        this.dnsServer = dnsServer;
+        this.encryptionMode = encryptionMode;
     }
 
     public EdgeCmd(N2NSettingInfo n2NSettingInfo, int vpnFd, String logPath){
@@ -58,6 +67,7 @@ public class EdgeCmd {
         this.supernodes[1] = n2NSettingInfo.getSuperNodeBackup();
         this.community = n2NSettingInfo.getCommunity();
         this.encKey = n2NSettingInfo.getPassword();
+        this.devDesc = n2NSettingInfo.getDevDesc();
         this.encKeyFile = "";
         this.macAddr = n2NSettingInfo.getMacAddr();
         this.mtu = n2NSettingInfo.getMtu();
@@ -71,6 +81,9 @@ public class EdgeCmd {
         this.traceLevel = n2NSettingInfo.getTraceLevel();
         this.vpnFd = vpnFd;
         this.logPath = logPath;
+        this.gatewayIp = n2NSettingInfo.getGatewayIp();
+        this.dnsServer = n2NSettingInfo.getDnsServer();
+        this.encryptionMode = n2NSettingInfo.getEncryptionMode();
     }
 
     public boolean checkValues(Vector<String> invalids) {
@@ -117,6 +130,12 @@ public class EdgeCmd {
         }
         if (!checkInt(vpnFd, 0, 65535)) {
             invalids.add("traceLevel");
+        }
+        if (!gatewayIp.isEmpty() && !checkIPV4(gatewayIp)) {
+            invalids.add("gatewayIp");
+        }
+        if (!dnsServer.isEmpty() && !checkIPV4(dnsServer)) {
+            invalids.add("dnsServer");
         }
 
         return invalids.size() == 0;
